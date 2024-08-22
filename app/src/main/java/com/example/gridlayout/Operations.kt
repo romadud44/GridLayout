@@ -1,5 +1,8 @@
 package com.example.gridlayout
 
+import android.content.Context
+import android.widget.Toast
+
 
 class Operations() {
     val keys = mapOf(
@@ -19,20 +22,35 @@ class Operations() {
         "+" to "+"
     )
 
-    fun calc(inputString: String): Double {
+    fun calc(context: Context, inputString: String): Double {
         var result = 0.0
         val numbers = inputString.split('+', '-', '*', '/')
-        var opersnds: MutableList<Char> = mutableListOf()
+        var operands: MutableList<Char> = mutableListOf()
         for (char in inputString.indices) {
             if (inputString[char] == '/' || inputString[char] == '*' || inputString[char] == '-' || inputString[char] == '+') {
-                opersnds.add(inputString[char])
+                operands.add(inputString[char])
             }
         }
-        when (opersnds[0]) {
-            '+' -> result = numbers[0].toDouble() + (numbers[1].toDouble())
-            '-' -> result = numbers[0].toDouble() - (numbers[1].toDouble())
-            '*' -> result = numbers[0].toDouble() * (numbers[1].toDouble())
-            '/' -> result = numbers[0].toDouble() / (numbers[1].toDouble())
+        if (numbers.size == 2 && operands.size == 1) {
+            when (operands[0]) {
+                '+' -> result = numbers[0].toDouble() + (numbers[1].toDouble())
+                '-' -> result = numbers[0].toDouble() - (numbers[1].toDouble())
+                '*' -> result = numbers[0].toDouble() * (numbers[1].toDouble())
+                '/' -> result = numbers[0].toDouble() / (numbers[1].toDouble())
+            }
+            Toast.makeText(
+                context,
+                "Готово",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            Toast.makeText(
+                context,
+                "Калькулятор работает только с двумя операндами :(",
+                Toast.LENGTH_LONG
+            ).show()
+            return result
+
         }
         return result
     }

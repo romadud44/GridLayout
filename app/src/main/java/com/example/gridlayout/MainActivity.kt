@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         binding.resultBTN.setOnClickListener {
             if(binding.inputET.text.isEmpty())return@setOnClickListener
-            result = Operations().calc(binding.inputET.text.toString())
+            result = Operations().calc(this,binding.inputET.text.toString())
 
             binding.resultTV.text = result.toString()
             binding.inputET.text.clear()
