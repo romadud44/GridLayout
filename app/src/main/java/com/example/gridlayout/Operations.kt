@@ -1,5 +1,6 @@
 package com.example.gridlayout
 
+
 class Operations() {
     val keys = mapOf(
         1 to "1",
@@ -17,4 +18,22 @@ class Operations() {
         "-" to "-",
         "+" to "+"
     )
+
+    fun calc(inputString: String): Double {
+        var result = 0.0
+        val numbers = inputString.split('+', '-', '*', '/')
+        var opersnds: MutableList<Char> = mutableListOf()
+        for (char in inputString.indices) {
+            if (inputString[char] == '/' || inputString[char] == '*' || inputString[char] == '-' || inputString[char] == '+') {
+                opersnds.add(inputString[char])
+            }
+        }
+        when (opersnds[0]) {
+            '+' -> result = numbers[0].toDouble() + (numbers[1].toDouble())
+            '-' -> result = numbers[0].toDouble() - (numbers[1].toDouble())
+            '*' -> result = numbers[0].toDouble() * (numbers[1].toDouble())
+            '/' -> result = numbers[0].toDouble() / (numbers[1].toDouble())
+        }
+        return result
+    }
 }

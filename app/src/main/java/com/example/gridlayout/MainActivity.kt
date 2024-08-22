@@ -1,7 +1,6 @@
 package com.example.gridlayout
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -15,7 +14,7 @@ import com.example.gridlayout.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    private var result = 0
+    private var result = 0.0
     private lateinit var binding: ActivityMainBinding
 
     @SuppressLint("ResourceAsColor")
@@ -34,22 +33,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buttons()
         binding.resetBTN.setOnClickListener {
             binding.inputET.text.clear()
-            result = 0
+            binding.resultTV.text = ""
+            result = 0.0
         }
         binding.resultBTN.setOnClickListener {
-            val result = 0
+            if(binding.inputET.text.isEmpty())return@setOnClickListener
+            result = Operations().calc(binding.inputET.text.toString())
 
             binding.resultTV.text = result.toString()
+            binding.inputET.text.clear()
         }
-
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
     }
-
     private fun buttons() {
         binding.oneBTN.setOnClickListener(this)
         binding.twoBTN.setOnClickListener(this)
